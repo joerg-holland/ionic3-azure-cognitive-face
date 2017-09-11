@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Ionic Azure Cognitive Face
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <h2>{{title}}</h2>
+  <ion-item>
+    <ion-label>URL of image</ion-label>
+    <ion-input floating type="text" [(ngModel)]="imageUrl"></ion-input>
+  </ion-item>
+  <button ion-button *ngIf="!setURLStatus" (click)="setImage()">Set Image</button>
+  <button ion-button *ngIf="getPersonAgeGenderStatus" (click)="resetImage()">Reset Image</button>
+  <ion-item *ngIf="setURLStatus">
+    <img [src]="imageUrl" height="300"/>
+  </ion-item>
+  <button ion-button *ngIf="setURLStatus && !getPersonAgeGenderStatus" (click)="getPersonAgeGender(imageUrl)">Get Person Age & Gender</button>
+  <!-- Result -->
+  <h2 *ngIf="getPersonAgeGenderStatus">Face(s):</h2>
+  <ion-list *ngFor="let face of faces">
+    <ion-item>
+      <h2>{{face.age}}</h2>
+      <p>Age</p>
+    </ion-item>
+    <ion-item>
+      <h2>{{face.gender}}</h2>
+      <p>Gender</p>
+    </ion-item>
+  </ion-list>
+  <!-- Details -->
+  <p *ngIf="persons">{{persons | json}}</p>
+</ion-content>
